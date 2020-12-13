@@ -19,7 +19,7 @@ const PostSchema = new Schema({
     },
     timeCreated: {
         type: Date,
-        default: new Date.now(),
+        default: Date.now(),
     },
     timeLastEdited: {
         type: Date,

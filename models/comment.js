@@ -10,7 +10,7 @@ const CommentSchema = new Schema({
     dateCreated: {
         type: Date,
         required: true,
-        default: new Date.now(),
+        default: Date.now(),
     },
     author: {
         type: Schema.Types.ObjectId,

@@ -3,6 +3,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
+    username: {
+      type: String,
+      required: true,
+      maxlength: 30,
+    },
     email: {
       type: String,
       required: true,
@@ -17,17 +22,9 @@ const UserSchema = new Schema({
       type: Boolean,
       default: false,
     },
-    firstName: {
-      type: String,
-      maxlength: 50,
-    },
-    lastName: {
-      type: String,
-      maxlength: 50,
-    },
     dateCreated: {
         type: Date,
-        default: new Date.now(),
+        default: Date.now(),
     },
 });
   

@@ -1,31 +1,22 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+const userController = require('../controllers/userController');
 
-// GET fields to sign up user 
-router.get('/signup', userController.signup_get);
+// GET user list
+router.get('/', userController.user_list);
 
 // POST sign up user
-router.post('/signup', userController.signup_post);
-
-// GET fields to login user
-router.get('/login', userController.login_get);
+router.post('/signup', userController.signup);
 
 // POST login user
-router.post('/login', userController.login_post);
+router.post('/login', userController.login);
 
 // GET logout user
 router.get('/logout', userController.logout);
 
 // GET user summary
-router.get('/user/:id', userController.user_index);
-
-// GET total number of users
-router.get('/users_count', userController.users_count)
+router.get('/:id', userController.user_index);
 
 
 module.exports = router;
