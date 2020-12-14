@@ -9,7 +9,6 @@ const CommentSchema = new Schema({
     },
     timeCreated: {
         type: Date,
-        required: true,
         default: Date.now(),
     },
     author: {
@@ -23,4 +22,4 @@ const CommentSchema = new Schema({
 });
 
 
-module.exports - mongoose.model('Comment', CommentSchema);
+module.exports = mongoose.model('Comment', CommentSchema);

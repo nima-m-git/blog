@@ -11,7 +11,7 @@ const postController = require('../controllers/postController');
 router.get('/', postController.index);
 
 // POST create post
-router.post('/', passport.authenticate('jwt', { session: false, }), isAdmin, postController.create);
+router.post('/', passport.authenticate('jwt', { session: false, }), isAdmin, postController.post);
 
 // GET post details
 router.get('/:id', postController.get);
@@ -22,5 +22,10 @@ router.put('/:id', passport.authenticate('jwt', { session: false, }), isAdmin, p
 // DELETE post
 router.delete('/:id', passport.authenticate('jwt', { session: false, }), isAdmin, postController.delete);
 
+// POST create comment
+router.post('/:id', passport.authenticate('jwt', { session: false, }), postController.commentPost);
+
+// DELETE comment
+router.delete('/:id/:commentId', passport.authenticate('jwt', { session: false, }), isAdmin, postController.commentDelete);
 
 module.exports = router;
