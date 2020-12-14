@@ -42,7 +42,7 @@ passport.use(
     secretOrKey: process.env.SECRET_KEY,
   },
   (jwtPayload, done) => {
-    User.findOneById(jwtPayload.id)
+    User.findById(jwtPayload._id)
       .then(user => done(null, user))
       .catch(err => done(err, false))
   })

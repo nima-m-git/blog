@@ -58,8 +58,8 @@ exports.signup = [
         .then(user => res.send({ 
             user,
             message: 'succesful registration',
-        })
-        .catch(err => next(err))
+        }))
+        .catch(err => next(err)
       );
     });
   },
@@ -74,17 +74,12 @@ exports.login = (req, res, next) => {
         }
 
         req.login(user, {session: false}, (err) => {
-            if (err) {
-                res.send(err);
-            }
+            if (err) return next(err);
             // generate a signed json web token with contents of user object and return in res
-            const token = jwt.sign(user, process.env.SECRET_KEY);
-            return res.json({
-                user, 
-                token
-            });
+            const token = jwt.sign(user, process.env.SECRET_KEY, {expiresIn: '1d'});
+            return res.json({ token });
         });
-    })(req, res);
+    })(req, res, next);
 };
 
 // User logout
@@ -98,7 +93,7 @@ exports.logout = (req, res) => {
 
 // User summary
 exports.user_index = (req, res, next) => {
-    User.findById(req.params.id).populate('comment post')
+    User.findById(req.params.id).populate('comment post').exec()
         .then(user => res.send(user))
         .catch(err => next(err))
 }

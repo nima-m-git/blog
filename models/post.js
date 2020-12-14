@@ -27,6 +27,7 @@ const PostSchema = new Schema({
     published: {
         type: Boolean,
         required: true,
+        default: false,
     }
 });
 

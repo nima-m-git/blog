@@ -7,7 +7,7 @@ const CommentSchema = new Schema({
         required: true,
         maxlength: 500,
     },
-    dateCreated: {
+    timeCreated: {
         type: Date,
         required: true,
         default: Date.now(),

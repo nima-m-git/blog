@@ -1,23 +1,26 @@
 const express = require('express');
-const router = express.router;
+const router = express.Router();
+const passport = require('passport');
+
+const isAdmin = require('../middleware/isAdmin');
 
 const postController = require('../controllers/postController');
 
 
-// GET posts index
+// GET all posts
 router.get('/', postController.index);
 
-// GET post page
+// POST create post
+router.post('/', passport.authenticate('jwt', { session: false, }), isAdmin, postController.create);
+
+// GET post details
 router.get('/:id', postController.get);
 
-// POST create post
-router.post('/', isAdmin, postController.create);
-
 // PUT update post
-router.put('/:id', isAdmin, postController.update);
+router.put('/:id', passport.authenticate('jwt', { session: false, }), isAdmin, postController.update);
 
 // DELETE post
-router.delete('/:id', isAdmin, postController.delete);
+router.delete('/:id', passport.authenticate('jwt', { session: false, }), isAdmin, postController.delete);
 
 
 module.exports = router;
