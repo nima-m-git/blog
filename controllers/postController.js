@@ -1,6 +1,6 @@
 const Post = require("../models/post");
-const User = require('../models/user');
-const Comment = require('../models/comment');
+const User = require("../models/user");
+const Comment = require("../models/comment");
 
 const { body, validationResult } = require("express-validator");
 
@@ -27,7 +27,8 @@ exports.post = [
 
   (req, res, next) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(500).json({ ...errors, ...req.body });
+    if (!errors.isEmpty())
+      return res.status(500).json({ ...errors, ...req.body });
 
     new Post({
       ...req.body,
@@ -56,7 +57,7 @@ exports.update = [
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(500).json({ errors, ...req.body });
+      return res.status(500).json({ ...errors, ...req.body });
     }
 
     const update = {
@@ -108,7 +109,7 @@ exports.commentPost = [
 
 // Remove a comment
 exports.commentDelete = (req, res, next) => {
-    Comment.findByIdAndDelete(req.params.commentId)
-        .then((comment) => res.send({ comment, message: 'comment removed' }))
-        .catch((err) => next(err));
-}
+  Comment.findByIdAndDelete(req.params.commentId)
+    .then((comment) => res.send({ comment, message: "comment removed" }))
+    .catch((err) => next(err));
+};
