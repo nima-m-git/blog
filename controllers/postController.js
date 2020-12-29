@@ -8,7 +8,7 @@ const { body, validationResult } = require("express-validator");
 exports.index = (req, res, next) => {
   Post.find()
     .sort([["timeCreated", "ascending"]])
-    .populate("comment")
+    .populate("comment author")
     .exec()
     .then((posts) => res.send({ posts }))
     .catch((err) => next(err));
