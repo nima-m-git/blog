@@ -1,11 +1,11 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const bcrypt = require('bcryptjs');
-const passportJWT = require('passport-jwt');
+const bcrypt = require("bcryptjs");
+const passportJWT = require("passport-jwt");
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 
-const User = require('./models/user');
+const User = require("./models/user");
 
 passport.use(
   new LocalStrategy(
@@ -14,8 +14,8 @@ passport.use(
       passwordField: "password",
     },
     (email, password, done) => {
-      User.findOne({ email: email, })
-        .then(user => {
+      User.findOne({ email: email })
+        .then((user) => {
           if (!user) {
             return done(null, false, { message: "Invalid email" });
           }
@@ -30,20 +30,23 @@ passport.use(
             }
           });
         })
-        .catch(err => done(err))
+        .catch((err) => done(err));
     }
   )
 );
 
-
 passport.use(
-  new JWTStrategy({
-    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: process.env.SECRET_KEY,
-  },
-  (jwtPayload, done) => {
-    User.findById(jwtPayload._id)
-      .then(user => done(null, user))
-      .catch(err => done(err, false))
-  })
+  new JWTStrategy(
+    {
+      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+      secretOrKey: process.env.SECRET_KEY,
+    },
+    (jwtPayload, done) => {
+      User.findById(jwtPayload._id)
+        .then((user) => done(null, user))
+        .catch((err) => {
+          done(err, false, { message: "invalid token" });
+        });
+    }
+  )
 );
