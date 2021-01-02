@@ -68,7 +68,7 @@ exports.update = [
 
     const update = {
       ...req.body,
-      timeEdited: Date.now(),
+      timeLastEdited: Date.now(),
     };
 
     Post.findByIdAndUpdate(req.params.id, update, { new: true })
