@@ -15,12 +15,19 @@ exports.index = (req, res, next) => {
 };
 
 // Get post details
-exports.get = (req, res, next) => {
-  Post.findById(req.params.id)
-    .populate("comment author")
-    .exec()
-    .then((post) => res.send({ post }))
-    .catch((err) => next(err));
+exports.get = async (req, res, next) => {
+  try {
+    const comments = await Comment.find({ post: req.params.id })
+      .populate("author")
+      .exec();
+    const post = await Post.findById(req.params.id)
+      .populate("author comment")
+      .exec();
+
+    res.send({ post, comments });
+  } catch (err) {
+    return next(err);
+  }
 };
 
 // Post post
