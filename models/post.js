@@ -29,6 +29,12 @@ const PostSchema = new Schema({
     required: true,
     default: false,
   },
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment",
+    },
+  ],
 });
 
 // Virtual for posts URL

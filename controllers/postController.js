@@ -8,7 +8,7 @@ const { body, validationResult } = require("express-validator");
 exports.index = (req, res, next) => {
   Post.find()
     .sort([["timeCreated", "ascending"]])
-    .populate("comment author")
+    .populate("author comments")
     .exec()
     .then((posts) => res.send({ posts }))
     .catch((err) => next(err));
@@ -17,14 +17,11 @@ exports.index = (req, res, next) => {
 // Get post details
 exports.get = async (req, res, next) => {
   try {
-    const comments = await Comment.find({ post: req.params.id })
-      .populate("author")
-      .exec();
     const post = await Post.findById(req.params.id)
-      .populate("author comment")
+      .populate({ path: "comments author", populate: { path: "author" } })
       .exec();
 
-    res.send({ post, comments });
+    res.send({ post });
   } catch (err) {
     return next(err);
   }
@@ -106,14 +103,19 @@ exports.commentPost = [
       const author = await User.findById(req.user.id);
       const post = await Post.findById(req.params.id);
 
-      new Comment({
+      const comment = new Comment({
         ...req.body,
         author,
-        post,
-      })
-        .save()
-        .then((comment) => res.send({ message: "comment added", comment }))
-        .catch((err) => next(err));
+        post: req.params.id,
+      });
+      await comment.save();
+
+      post.comments.push(comment);
+      await post.save();
+
+      res
+        .status(200)
+        .json({ success: true, message: "comment added", comment });
     } catch (err) {
       next(err);
     }
