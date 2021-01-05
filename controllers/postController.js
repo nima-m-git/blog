@@ -97,7 +97,8 @@ exports.commentPost = [
 
   async (req, res, next) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(500).send({ errors, ...req.body });
+    if (!errors.isEmpty())
+      return res.status(500).send({ ...errors, ...req.body });
 
     try {
       const author = await User.findById(req.user.id);
