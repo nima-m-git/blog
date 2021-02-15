@@ -1,7 +1,8 @@
 # Blog
 
-Blog is a blog app, backend made with Node JS, and frontends with Reac
-There is a user site, and a blogger/admin site
+Blog is a blog app, backend made with Node JS, and frontends with React
+
+There are separate user and blogger sites
 
 ## Codes
 
