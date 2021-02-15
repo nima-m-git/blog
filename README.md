@@ -5,13 +5,13 @@ There is a user site, and a blogger/admin site
 
 ## Codes
 
-(https://github.com/nima-m-git/blog-blogger-frontend)[Blogger site code]
-(https://github.com/nima-m-git/blog-user-frontend)[User site code]
+[Blogger site code](https://github.com/nima-m-git/blog-blogger-frontend)
+[User site code](https://github.com/nima-m-git/blog-user-frontend)
 
 ## Hosted
 
-(https://thawing-sierra-41526.herokuapp.com/)[User site]
-(https://desolate-headland-75993.herokuapp.com/)[Blogger site]
+[User site](https://thawing-sierra-41526.herokuapp.com/)
+[Blogger site](https://desolate-headland-75993.herokuapp.com/)
 
 ## License
 
